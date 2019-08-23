@@ -8,7 +8,7 @@ end
 def get_japanese_emoticon(emoticon)
   emoticons = load_library
   emoticons.find { |(meaning, emotes)|
-    
+    emotes[0] == emoticon
   }
 end
 
