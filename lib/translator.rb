@@ -5,7 +5,7 @@ def load_library
   emoticons = YAML.load_file('emoticons.yml')
 end
 
-def get_japanese_emoticon
+def get_japanese_emoticon(emoticon)
   emoticons = load_library
 end
 
