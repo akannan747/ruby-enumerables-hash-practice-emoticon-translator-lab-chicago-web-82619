@@ -1,20 +1,24 @@
 # require modules here
 require "yaml"
 
-def load_library(file_path)
-  emoticons = YAML.load_file(file_path)
+def load_library(filepath)
+  emoticons = YAML.load_file(filepath)
+  translator = {"get_meaning": {}, "get_emoticon": {}}
+  emoticons.reduce(translator) { |translator, (meaning, emotes)|
+    emote = emotes[0]
+    j_emote = emotes[1]
+    translator[:get_meaning][j_emote] = meaning
+    translator[:get_emoticon][emote] = j_emote
+    translator
+  }
 end
 
-def get_japanese_emoticon(emoticon)
-  emoticons = load_library
-  emoticons.find { |(meaning, emotes)|
-    emotes[0] == emoticon
-  }[1][1]
+def get_japanese_emoticon(filepath, emoticon)
+  translator = load_library(filepath)
+  translator[:get_emoticon][emoticon]
 end
 
-def get_english_meaning(emoticon)
-  emoticons = load_library
-  emoticons.find { |(meaning, emotes)|
-    emotes[1] == emoticon
-  }[0]
+def get_english_meaning(filepath, emoticon)
+  translator = load_library(filepath)
+  translator[:get_meaning][emoticon]
 end
