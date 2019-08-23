@@ -7,7 +7,7 @@ end
 
 def get_japanese_emoticon(emoticon)
   emoticons = load_library
-  emoticons.find {|
+  emoticons.find { |emote|
     
   }
 end
